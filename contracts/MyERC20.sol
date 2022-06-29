@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
+//deployed to 0x09350A6aa0eEA3e4188D7666f7DE2fcA6e519d04
+
 /// @title Custom ERC20 token with mint and burn implementation
 /// @author M. Dichenko
 /// @dev All function except _mint and _burn are  EIP-20 standart
