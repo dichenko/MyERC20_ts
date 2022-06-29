@@ -38,11 +38,11 @@ describe("MyERC20Token", function () {
   });
 
   describe("Transfer", function () {
-    it("Should transfer correct amount of tokens", async function () {
-      let tokenAmountBefore = await myToken.balanceOf(owner.address);
+    it("Should update balances after transfers", async function () {
+      const initialBalance = await myToken.balanceOf(owner.address);
       await myToken.transfer(user1.address, 5);
-      let tokenAmountAfter = await myToken.balanceOf(owner.address);
-      expect(tokenAmountAfter).to.equal(tokenAmountBefore - 5);
+      const tokenAmountAfter = await myToken.balanceOf(owner.address);
+      expect(tokenAmountAfter).to.equal(initialBalance.sub(5));
       expect(await myToken.balanceOf(user1.address)).to.equal(5);
     });
 
@@ -73,14 +73,14 @@ describe("MyERC20Token", function () {
       );
     });
 
-    it("Should transfer correct amount of tokens", async function () {
+    it("Should update balances after transerFrom", async function () {
+      let initialBalance = await myToken.balanceOf(owner.address);
       await myToken.approve(user1.address, 500);
-      let tokenAmountBefore = await myToken.balanceOf(owner.address);
       await myToken
         .connect(user1)
         .transferFrom(owner.address, user2.address, 500);
-      let tokenAmountAfter = await myToken.balanceOf(owner.address);
-      expect(tokenAmountAfter).to.equal(tokenAmountBefore - 500);
+      let balanceAfterTransferFrom = await myToken.balanceOf(owner.address);
+      expect(balanceAfterTransferFrom).to.equal(initialBalance.sub(500));
       expect(await myToken.balanceOf(user2.address)).to.equal(500);
     });
 
