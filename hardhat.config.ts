@@ -9,8 +9,7 @@ import "solidity-coverage";
 
 dotenv.config();
 
-
-task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
+task("accounts", "Prints the list of accounts", async (args, hre) => {
   const accounts = await hre.ethers.getSigners();
 
   for (const account of accounts) {
@@ -18,21 +17,15 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
   }
 });
 
-
-
 const config: HardhatUserConfig = {
   solidity: "0.8.15",
-  
 
   networks: {
     rinkeby: {
-      gasPrice: 50000000000,
       url: process.env.STAGING_ALCHEMY_KEY || "",
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
-
-   
   },
   gasReporter: {
     enabled: process.env.REPORT_GAS !== undefined,
