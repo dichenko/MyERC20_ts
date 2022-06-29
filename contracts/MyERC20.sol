@@ -38,6 +38,9 @@ contract MyERC20 {
         uint256 _value
     );
 
+    /**
+     * @dev Returns the amount of tokens owned by `account`.
+     */
     function name() public view returns (string memory) {
         return tokenName;
     }
@@ -54,7 +57,12 @@ contract MyERC20 {
         return tokenTotalSupply;
     }
 
-    function balanceOf(address _user) public view returns (uint256 balance) {
+    /**
+     * @dev Returns the amount of tokens owned by `account`.
+     * @param _user address
+     * @return uint256 balance
+     */
+    function balanceOf(address _user) public view returns (uint256) {
         return balances[_user];
     }
 
