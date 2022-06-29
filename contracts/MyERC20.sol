@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
+/// @title Custom ERC20 token with mint and burn implementation
+/// @author M. Dichenko
+/// @dev All function except _mint and _burn are  EIP-20 standart
 contract MyERC20 {
     mapping(address => uint256) public balances;
     mapping(address => mapping(address => uint256)) public allowed;
@@ -38,33 +41,47 @@ contract MyERC20 {
         uint256 _value
     );
 
-    /**
-     * @dev Returns the amount of tokens owned by `account`.
-     */
+    ///@dev Returns the name of token
+    ///@return tokenName string, name of Token
+
     function name() public view returns (string memory) {
         return tokenName;
     }
+
+    ///@dev Returns the symbol of token
+    ///@return tokenSymbol string, symbol of Token
 
     function symbol() public view returns (string memory) {
         return tokenSymbol;
     }
 
+    ///@dev Returns decimals
+    ///@return tokenDecimals uint8
+
     function decimals() public view returns (uint8) {
         return tokenDecimals;
     }
+
+    ///@dev Returns tokenTotal supply of token
+    ///@return tokenTotalSupply uint256
 
     function totalSupply() public view returns (uint256) {
         return tokenTotalSupply;
     }
 
-    /**
-     * @dev Returns the amount of tokens owned by `account`.
-     * @param _user address
-     * @return uint256 balance
-     */
+    ///@dev Returns the amount of tokens owned by `account`.
+    ///@param _user account address
+    ///@return uint256 balance of accaunt
+
     function balanceOf(address _user) public view returns (uint256) {
         return balances[_user];
     }
+
+    ///@dev Moves `amount` tokens from the caller's account to `recipient`.
+    ///@param _to address
+    ///@param _value uint256
+    ///@return success bool a boolean value indicating whether the operation succeeded.
+    ///@custom:emit  a Transfer event.
 
     function transfer(address _to, uint256 _value)
         public
@@ -76,6 +93,12 @@ contract MyERC20 {
         emit Transfer(msg.sender, _to, _value);
         return true;
     }
+
+    ///@dev Moves `amount` tokens from the 'spender' account to `recipient`.
+    ///@param _to address
+    ///@param _value uint256
+    ///@return success bool a boolean value indicating whether the operation succeeded.
+    ///@custom:emit  a Transfer event.
 
     function transferFrom(
         address _from,
