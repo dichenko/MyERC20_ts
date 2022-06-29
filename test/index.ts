@@ -22,7 +22,8 @@ describe("MyERC20Token", function () {
       name,
       symbols,
       decimals,
-      initialSupply
+      initialSupply,
+      { gasPrice: 875000000 }
     );
     [owner, user1, user2, user3] = await ethers.getSigners();
   });
