@@ -31,48 +31,6 @@ task("transfer", "Transfer tokens")
     return success;
   });
 
-task("transferfrom", "Transfer tokens from another address")
-  .addParam("from", "address from")
-  .addParam("to", "address to")
-  .addParam("amount", "Amount tokens to transfer")
-  .setAction(async ({ from, to, amount, hre }, { ethers: { getSigners } }) => {
-    const TOKEN = await hre.ethers.getContractFactory("MyREC20");
-    const myToken = TOKEN.attach("0x09350A6aa0eEA3e4188D7666f7DE2fcA6e519d04");
-    const user = await hre.ethers.getSigners();
-    const success = await myToken.transferFrom(from, to, amount);
-    return success;
-  });
-
-task("mint", "Mint tokens")
-  .addParam("amount", "Amount tokens to mint")
-  .setAction(async ({ amount, hre }, { ethers: { getSigners } }) => {
-    const TOKEN = await hre.ethers.getContractFactory("MyREC20");
-    const myToken = TOKEN.attach("0x09350A6aa0eEA3e4188D7666f7DE2fcA6e519d04");
-    const user = await hre.ethers.getSigners();
-    const success = await myToken.mint(amount);
-    return success;
-  });
-
-task("burn", "Burn tokens")
-  .addParam("amount", "Amount tokens to burn")
-  .setAction(async ({ amount, hre }, { ethers: { getSigners } }) => {
-    const TOKEN = await hre.ethers.getContractFactory("MyREC20");
-    const myToken = TOKEN.attach("0x09350A6aa0eEA3e4188D7666f7DE2fcA6e519d04");
-    const user = await hre.ethers.getSigners();
-    const success = await myToken.burn(amount);
-    return success;
-  });
-
-task("approve", "Approve tokens to spend from another address")
-  .addParam("spender", "address spender")
-  .addParam("amount", "Amount tokens to approve")
-  .setAction(async ({ spender, amount, hre }, { ethers: { getSigners } }) => {
-    const TOKEN = await hre.ethers.getContractFactory("MyREC20");
-    const myToken = TOKEN.attach("0x09350A6aa0eEA3e4188D7666f7DE2fcA6e519d04");
-    const user = await hre.ethers.getSigners();
-    const success = await myToken.approve(spender, amount);
-    return success;
-  });
 
 const config: HardhatUserConfig = {
   solidity: "0.8.15",
