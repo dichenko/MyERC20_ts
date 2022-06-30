@@ -7,29 +7,14 @@ import "@typechain/hardhat";
 import "hardhat-gas-reporter";
 import "solidity-coverage";
 import "@nomiclabs/hardhat-etherscan";
-import { ethers } from "ethers";
 import { MyERC20 } from "./typechain";
+import "./tasks/sampleTask.ts";
+import "./tasks/accounts.ts";
 
 
 
-task("accounts", "Prints the list of accounts", async (args, hre) => {
-  const accounts = await hre.ethers.getSigners();
-  for (const account of accounts) {
-    console.log(account.address);
-  }
-});
 
-task("transfer", "Transfer tokens")
-  .addParam("addressto", "address to transfer")
-  .addParam("amount", "Amount tokens to transfer")
-  .setAction(async ({addressto, amount, hre}, { ethers: { getSigners } }) => {
-    let myToken: MyERC20;
-    const TOKEN = await hre.ethers.getContractFactory("MyREC20");
-    myToken = TOKEN.attach("0x09350A6aa0eEA3e4188D7666f7DE2fcA6e519d04");
-    const success = await myToken.transfer(addressto, amount);
-    console.log("Transfered", amount, " tokens to ", addressto);
-    return success;
-  });
+
 
 
 const config: HardhatUserConfig = {
