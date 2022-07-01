@@ -7,26 +7,26 @@ pragma solidity ^0.8.0;
 /// @author M. Dichenko
 /// @dev All function except _mint and _burn are  EIP-20 standart
 contract MyERC20 {
-    mapping(address => uint256) public balances;
-    mapping(address => mapping(address => uint256)) public allowed;
+    mapping(address => uint256) internal balances;
+    mapping(address => mapping(address => uint256)) internal allowed;
 
-    uint8 public tokenDecimals;
+    uint8 public decimals;
     address public owner;
-    string public tokenName;
-    string public tokenSymbol;
-    uint256 public tokenTotalSupply;
+    string public name;
+    string public symbol;
+    uint256 public totalSupply;
 
     constructor(
         string memory _tokenName,
         string memory _tokenSymbol,
-        uint8 _tokenDecimals,
+        uint8 _decimals,
         uint256 _initialAmount
     ) {
         owner = msg.sender;
-        tokenName = _tokenName;
-        tokenSymbol = _tokenSymbol;
-        tokenDecimals = _tokenDecimals;
-        tokenTotalSupply = _initialAmount;
+        name = _tokenName;
+        symbol = _tokenSymbol;
+        decimals = _decimals;
+        totalSupply = _initialAmount;
         balances[msg.sender] = _initialAmount;
         emit Transfer(address(0), msg.sender, _initialAmount);
     }
@@ -42,30 +42,6 @@ contract MyERC20 {
         address indexed _spender,
         uint256 _value
     );
-
-    ///@dev Returns the name of token
-    ///@return tokenName string, name of Token
-    function name() public view returns (string memory) {
-        return tokenName;
-    }
-
-    ///@dev Returns the symbol of token
-    ///@return tokenSymbol string, symbol of Token
-    function symbol() public view returns (string memory) {
-        return tokenSymbol;
-    }
-
-    ///@dev Returns decimals
-    ///@return tokenDecimals uint8
-    function decimals() public view returns (uint8) {
-        return tokenDecimals;
-    }
-
-    ///@dev Returns tokenTotal supply of token
-    ///@return tokenTotalSupply uint256
-    function totalSupply() public view returns (uint256) {
-        return tokenTotalSupply;
-    }
 
     ///@dev Returns the amount of tokens owned by `account`.
     ///@param _user account address
@@ -140,7 +116,7 @@ contract MyERC20 {
     ///@custom:emit a Transfer event.
     function mint(uint256 _value) public onlyOwner returns (bool success) {
         balances[owner] += _value;
-        tokenTotalSupply += _value;
+        totalSupply += _value;
         emit Transfer(address(0), owner, _value);
         return true;
     }
@@ -151,7 +127,7 @@ contract MyERC20 {
     ///@custom:emit a Transfer event.
     function burn(uint256 _value) public onlyOwner returns (bool success) {
         balances[owner] -= _value;
-        tokenTotalSupply -= _value;
+        totalSupply -= _value;
         emit Transfer(owner, address(0), _value);
         return true;
     }
