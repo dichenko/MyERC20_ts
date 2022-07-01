@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
-//deployed to 0x09350A6aa0eEA3e4188D7666f7DE2fcA6e519d04
+//deployed to 0xDb8310475E7559Fe3548b936a309Bd402fa2eE9D
 
 /// @title Custom ERC20 token with mint and burn implementation
 /// @author M. Dichenko
@@ -35,8 +35,10 @@ contract MyERC20 {
         require(msg.sender == owner, "You are not an owner");
         _;
     }
-
+    /// Event Transfer
     event Transfer(address indexed _from, address indexed _to, uint256 _value);
+
+    ///Event Approval
     event Approval(
         address indexed _owner,
         address indexed _spender,
