@@ -10,11 +10,11 @@ contract MyERC20 {
     mapping(address => uint256) public balances;
     mapping(address => mapping(address => uint256)) public allowed;
 
-    uint8 tokenDecimals;
+    uint8 public tokenDecimals;
     address public owner;
     string public tokenName;
     string public tokenSymbol;
-    uint256 tokenTotalSupply;
+    uint256 public tokenTotalSupply;
 
     constructor(
         string memory _tokenName,

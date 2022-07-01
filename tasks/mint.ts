@@ -1,11 +1,9 @@
 import * as dotenv from "dotenv";
 import { task } from "hardhat/config";
-import "@nomiclabs/hardhat-waffle";
 dotenv.config();
 
-task("transfer", "Transfer amount of tokens to another address")
-.addParam("to", "Address to transfer")
-  .addParam("amount", "Amount of tokens to transfer")
+task("mint", "Mint amount of tokens to the owner")
+  .addParam("amount", "Amount of tokens to be minted")
   .setAction(async (taskArgs, hre) => {
     const [owner] = await hre.ethers.getSigners();
     const erc20Address = process.env.DEPLOYED_ERC20_ADDRESS;
@@ -14,6 +12,6 @@ task("transfer", "Transfer amount of tokens to another address")
       erc20Address as string,
       owner
     );
-    const result = await myERC20.transfer(taskArgs.to, taskArgs.amount);
+    const result = await myERC20.mint(taskArgs.amount);
     console.log(result);
   });

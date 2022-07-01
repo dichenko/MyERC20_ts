@@ -1,36 +1,41 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
-import { MyERC20 } from "../typechain";
+import { Contract } from "ethers";
 
 describe("MyERC20Token", function () {
-  let MyTokenFactory;
-  let myToken: MyERC20;
+
   let name = "RewardToken";
   let symbols = "RWD";
   let decimals = 18;
   let initialSupply = ethers.utils.parseEther("1000000");
+
+  let myToken:Contract;
   let owner: SignerWithAddress;
   let user1: SignerWithAddress;
   let user2: SignerWithAddress;
   let user3: SignerWithAddress;
-
+  
 
   beforeEach(async () => {
-    MyTokenFactory = await ethers.getContractFactory("MyERC20");
+    const MyTokenFactory = await ethers.getContractFactory("MyERC20");
     myToken = await MyTokenFactory.deploy(
       name,
       symbols,
       decimals,
-      initialSupply,
-      { gasPrice: 875000000 }
+      initialSupply
     );
+
     [owner, user1, user2, user3] = await ethers.getSigners();
   });
 
   describe("Deployment", function () {
-    it("Should set the right owner", async function () {
+    it("Should set the correct params", async function () {
       expect(await myToken.owner()).to.equal(owner.address);
+      expect(await myToken.tokenName()).to.equal(name);
+      expect(await myToken.tokenSymbol()).to.equal(symbols);
+      expect(await myToken.tokenTotalSupply()).to.equal(initialSupply);
+      expect(await myToken.tokenDecimals()).to.equal(decimals);
     });
 
     it("Should be the right value in owner balance", async function () {

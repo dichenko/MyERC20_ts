@@ -8,24 +8,8 @@ import "hardhat-gas-reporter";
 import "solidity-coverage";
 import "@nomiclabs/hardhat-etherscan";
 
-task("accounts", "Prints the list of accounts", async (args, hre) => {
-  const accounts = await hre.ethers.getSigners();
-  for (const account of accounts) {
-    console.log(account.address);
-  }
-});
+import './tasks/index.ts'
 
-task("transfer", "Transfer tokens")
-  .addParam("addressto", "address to transfer")
-  .addParam("amount", "Amount tokens to transfer")
-  .setAction(async (addressto, amount, hre) => {
-    const TOKEN = await hre.ethers.getContractFactory("MyToken");
-    const myToken = TOKEN.attach("0xC2544D5C72b44162561e4c1b336e06cD27CA93c8");
-    const user = await hre.ethers.getSigners();
-    const success = await myToken.transfer(addressto, amount);
-    console.log("Transfered", amount, " tokens to ", addressto);
-    return success;
-  });
 
 const config: HardhatUserConfig = {
   solidity: "0.8.15",
